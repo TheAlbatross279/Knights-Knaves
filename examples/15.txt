@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Betty and Peggy. Betty tells you that Peggy is a knave. Peggy tells you, `Betty and I are both knights.'
+
+Can you determine who is a knight and who is a knave?
