@@ -236,33 +236,33 @@ results = [
 ['(A is True if !(B is True)) or (B is True if !(A is True))', '(A is True if B is True)'],
 ['(!(B is False))', '(A != B)'],
 ['(B is False)', '(A != B)'],
-['(A is True or B is False)', '!(A is False)'], ### MAYBE XOR?
-['(B is False)', '(A is True or B is True)'],
+['(A is True ^ B is False)', '!(A is False)'], 
+['(B is False)', '(A is True ^ B is True)'],
 ['(A is True and B is False)', '(A is True if B is True)'], ### broken
 ['(A is True and B is True)', '(B is True if A is True)'],
 ['(A != B)', '!(A is False)'], ### broken
 ['!(B is False)', '(A != B)'], ### broken
-['(A is True if B is False)', '(A is True or B is False)'],
+['(A is True if B is False)', '(A is True ^ B is False)'],
 ['!(A is False) and !(B is False)', '(A == B)'],
 ['(A != B)', '!(A is False)'],###broken
-['(A != B)', '(A is True or B is True)'],
+['(A != B)', '(A is True ^ B is True)'],
 ['(A is True if B is True)', '(!(A is False))'],
 ['(A != B)', '(!(A is False))'],
 ['(A is True if B is True)', '(A is False)'],
 ['(A != B)', '(A is True and B is True) or (A is False and B is False)'],
 ['(A != B)', '(B is True if A is False)'],
-['(A is True or B is False)', '(B is True if A is False)'],
-['(A != B)', '(A is True or B is False)'],
+['(A is True ^ B is False)', '(B is True if A is False)'],
+['(A != B)', '(A is True ^ B is False)'],
 ['(A is True and B is True) or (A is False and B is False)', '(A == B)'],
-['(A is False or B is True)', '(!(A is False))'],
+['(A is False ^ B is True)', '(!(A is False))'],
 ['(A is False and B is True)', '!(A False is False)'], ###broken
 ['(!(B is False))', '(A != B)'],
 ['(A is True and B is False)', '(B is True if A is True)'], ###broken
-['(A is False or B is True)', '(A is True if B is False)'], ##check order
+['(A is False ^ B is True)', '(A is True if B is False)'], ##check order
 ['(A is True and B is True) or (A is False and B is False)', '!(A is False)'],###broken
 ['(!(B is False))', '(B is True if A is False)'],
 ['(B is False)', '(A is True if !(B is True)) or (B is True if !(A is True))'],
-['(A is True or B is True)', '(A != B)'],
+['(A is True ^ B is True)', '(A != B)'],
 ['(B is False)', '(A != B)'],
 ['(B is False)', '(A is True if B is False)']
     ]
