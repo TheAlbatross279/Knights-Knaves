@@ -1,4 +1,6 @@
+import traceback
 from parser import Parser
+from evaluator import evaluate_puzzle
 
 text = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Zoey and Mel. Zoey tells you that Mel is a knave. Mel says, `Neither Zoey nor I are knaves.'
@@ -215,53 +217,53 @@ list = [text, text2, text3, text4, text5, text6, text7, text8, text9, text10, te
         text41, text42, text43, text44, text45, text46, text47, text48, text49, text50]
 
 results = [
-['(B is False)', '!(A is False) and !(B is False)'],
-['(A is True if !(B is True)) or (B is True if !(A is True))', '!(A is False)'],
+['(B is False)', 'not (A is False) and not (B is False)'],
+['(A is True if not (B is True)) ^ (B is True if not (A is True))', 'not (A is False)'],
 ['(B is False)', '(A is True and B is True)'],
-['(A != B)', '(A is True if !(B is True)) or (B is True if !(A is True))'],
-['(A is True or B is True)', '(A is True if B is False)'],
-['(A is True and B is True) or (A is False and B is False)', '(A == B)'],
-['(A is True or B is True)', '(A is False)'],
-['(B is True if A is False)', '(!(A is False))'],
-['(A is True if !(B is True)) or (B is True if !(A is True))', '(A is False)'],
-['(A is True or B is True)', '(A is True if B is False)'],
-['(A is True or B is False)', '(A is True if !(B is True)) or (B is True if !(A is True))'],
-['(B is False)', '(A is True or B is True)'],
-['(A is True and B is True) or (A is False and B is False)', '(A is True if B is False)'],
+['(A != B)', '(A is True if not (B is True)) ^ (B is True if not (A is True))'],
+['(A is True ^ B is True)', '(A is True if B is False)'],
+['(A is True and B is True) ^ (A is False and B is False)', '(A == B)'],
+['(A is True ^ B is True)', '(A is False)'],
+['(B is True if A is False)', '(not (A is False))'],
+['(A is True if not (B is True)) ^ (B is True if not (A is True))', '(A is False)'],
+['(A is True ^ B is True)', '(A is True if B is False)'],
+['(A is True ^ B is False)', '(A is True if not (B is True)) ^ (B is True if not (A is True))'],
+['(B is False)', '(A is True ^ B is True)'],
+['(A is True and B is True) ^ (A is False and B is False)', '(A is True if B is False)'],
 ['(A is True and B is False)', '(B is True if A is True)'], # Broken
-['(B is False)', '(A is True and B is True)'], ###
-['(A is True or B is False)', '!(A is False)'], ###
-['(B is True if A is True)', '(!(A is False))'],
-['(A is False or B is True)', '(A is True if !(B is True)) or (B is True if !(A is True))'],#
-['(A is True if !(B is True)) or (B is True if !(A is True))', '(A is True if B is True)'],
-['(!(B is False))', '(A != B)'],
+['(B is False)', '(A is True ^ B is True)'], ###
+['(A is True ^ B is False)', 'not (A is False)'], ###
+['(B is True if A is True)', '(not (A is False))'],
+['(A is False ^ B is True)', '(A is True if not (B is True)) ^ (B is True if not (A is True))'],#
+['(A is True if not (B is True)) ^ (B is True if not (A is True))', '(A is True if B is True)'],
+['(not (B is False))', '(A != B)'],
 ['(B is False)', '(A != B)'],
-['(A is True ^ B is False)', '!(A is False)'], 
+['(A is True ^ B is False)', 'not (A is False)'], 
 ['(B is False)', '(A is True ^ B is True)'],
 ['(A is True and B is False)', '(A is True if B is True)'], ### broken
 ['(A is True and B is True)', '(B is True if A is True)'],
-['(A != B)', '!(A is False)'], ### broken
-['!(B is False)', '(A != B)'], ### broken
+['(A != B)', 'not (A is False)'], ### broken
+['not (B is False)', '(A != B)'], ### broken
 ['(A is True if B is False)', '(A is True ^ B is False)'],
-['!(A is False) and !(B is False)', '(A == B)'],
-['(A != B)', '!(A is False)'],###broken
+['not (A is False) and not (B is False)', '(A == B)'],
+['(A != B)', 'not (A is False)'],###broken
 ['(A != B)', '(A is True ^ B is True)'],
-['(A is True if B is True)', '(!(A is False))'],
-['(A != B)', '(!(A is False))'],
+['(A is True if B is True)', '(not (A is False))'],
+['(A != B)', '(not (A is False))'],
 ['(A is True if B is True)', '(A is False)'],
-['(A != B)', '(A is True and B is True) or (A is False and B is False)'],
+['(A != B)', '(A is True and B is True) ^ (A is False and B is False)'],
 ['(A != B)', '(B is True if A is False)'],
 ['(A is True ^ B is False)', '(B is True if A is False)'],
 ['(A != B)', '(A is True ^ B is False)'],
-['(A is True and B is True) or (A is False and B is False)', '(A == B)'],
-['(A is False ^ B is True)', '(!(A is False))'],
-['(A is False and B is True)', '!(A False is False)'], ###broken
-['(!(B is False))', '(A != B)'],
+['(A is True and B is True) ^ (A is False and B is False)', '(A == B)'],
+['(A is False ^ B is True)', '(not (A is False))'],
+['(A is False and B is True)', 'not (A False is False)'], ###broken
+['(not (B is False))', '(A != B)'],
 ['(A is True and B is False)', '(B is True if A is True)'], ###broken
 ['(A is False ^ B is True)', '(A is True if B is False)'], ##check order
-['(A is True and B is True) or (A is False and B is False)', '!(A is False)'],###broken
-['(!(B is False))', '(B is True if A is False)'],
-['(B is False)', '(A is True if !(B is True)) or (B is True if !(A is True))'],
+['(A is True and B is True) ^ (A is False and B is False)', 'not (A is False)'],###broken
+['(not (B is False))', '(B is True if A is False)'],
+['(B is False)', '(A is True if not (B is True)) ^ (B is True if not (A is True))'],
 ['(A is True ^ B is True)', '(A != B)'],
 ['(B is False)', '(A != B)'],
 ['(B is False)', '(A is True if B is False)']
@@ -276,19 +278,21 @@ for t in list:
 #    print "DONE"
 
 for ndx in range(0, len(retrieved)):
+    fail = False
     print "Testing results..." + str(ndx)
     if retrieved[ndx][0] != results[ndx][0]:
+        fail = True
         print "Error: "
         print "     " + retrieved[ndx][0]
         print  "     " + results[ndx][0]
     if retrieved[ndx][1] != results[ndx][1]:
+        fail = True
         print "Error: "
         print  "     " + retrieved[ndx][1]
         print  "     " + results[ndx][1]
-    
-        
-
-
-
-    
-
+    if not fail:
+        try:
+            print evaluate_puzzle(retrieved[ndx])
+        except SyntaxError:
+            print "Syntax Error", traceback.format_exc()
+    print

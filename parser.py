@@ -16,7 +16,7 @@ class Parser(object):
         
         for sent in sentences: 
             sent = re.sub("[^A-Za-z ]", "", sent)
-#            print sent
+            print sent
 
         #parse names
         names = []
@@ -37,15 +37,15 @@ class Parser(object):
         statements = []
 
         #parse first statement
-        allowed = ["or", "one", "we", "I", 
+        allowed = ["one", "we", "I", 
                    "nor", "both", "could", "would",
                    "case", "is", "same", "different",
                    "exactly", "and"]
         
         logic = {"are": "is",
-                 "false": "!", 
-                 "not": "!",
-                 "am": "is"
+                 "false": "not", 
+                 "am": "is",
+                 "or": "^"
                  }
         
         for sentence in sentences:
@@ -91,26 +91,26 @@ class Parser(object):
                     #print prefix
 
                     #it is false that B is a knave
-                    if "!" in prefix:
+                    if "not" in prefix:
                         if "B" in prefix: 
-                            output = "!(B " + " ".join(assertion) +")"
+                            output = "not (B " + " ".join(assertion) +")"
                         if "A" in prefix: 
-                            output = "!(A " + " ".join(assertion) +")"
+                            output = "not (A " + " ".join(assertion) +")"
 
                     #A nor B is False
                     if "nor" in prefix: 
-                        output = "!(A " + " ".join(assertion) + ") and !(B " + " ".join(assertion) + ")"
+                        output = "not (A " + " ".join(assertion) + ") and not (B " + " ".join(assertion) + ")"
 
                     #exactly one of us is a knave
                     elif "one" in prefix and "exactly" in prefix:
-                        output = "(A " + " ".join(assertion) + " if !(B " + " ".join(assertion) + \
-                            ")) or (B " + " ".join(assertion) + " if !(A " + " ".join(assertion) + \
+                        output = "(A " + " ".join(assertion) + " if not (B " + " ".join(assertion) + \
+                            ")) ^ (B " + " ".join(assertion) + " if not (A " + " ".join(assertion) + \
                             "))"
 
                     #only a knave would say A is a knave
                     elif "would" in prefix:
                         if assertion[0] == "False":
-                            output = "!"
+                            output = "not "
                         if "A" in prefix and "B" in prefix:
                             if prefix[0] == "A":
                                 output = "(A is True if B " + " ".join(assertion) + ")"
@@ -124,25 +124,25 @@ class Parser(object):
 
                     #! the case that A is False
                     elif "case" in prefix:
-                        if "!" in prefix:
+                        if "not" in prefix:
                             if "A" in prefix:
-                                output = "(!(A" 
+                                output = "(not (A" 
                             elif "B" in prefix: 
-                                output = "(!(B"
+                                output = "(not (B"
                             output += " " + " ".join(assertion) + "))"
                         else:
                             output = " ".join(output[1:])
 
                     #are the same or not the same
                     elif "same" in prefix:
-                        if "!" in prefix: 
+                        if "not" in prefix: 
                             output = "(A != B)"
                         else:
                             output = "(A == B)" 
 
 
                     elif "different" in prefix:
-                        if "!" in prefix: 
+                        if "not" in prefix: 
                             output = "(A == B)"
                         else:
                             output = "(A != B)" 
@@ -164,27 +164,27 @@ class Parser(object):
                                 output1 = "(A is True and B is True)"
                             if "False" in assertion:
                                 output2 = "(A is False and B is False)" 
-                            if "or" in prefix :
-                                output2 = " or " + output2
+                            if "^" in prefix :
+                                output2 = " ^ " + output2
                             output = output1 + output2
                         else:
                             output = "(A " + " ".join(assertion) + " and B " + " ".join(assertion) + ")"
 
                     #A or B
-                    elif "or" in prefix:
+                    elif "^" in prefix:
                         if len(assertion) > 2:
                             assertions = []
                             for word in assertion:
                                 #print word
                                 if word == "True" or word == "False":
                                     assertions.append(word)
-                            output = "(A is " + assertions[0] + " or " + "B is " + assertions[1] +")"
+                            output = "(A is " + assertions[0] + " ^ " + "B is " + assertions[1] +")"
                         else:
-                            output = "(A is " + " ".join(assertion) + " or " + " B is "+ \
+                            output = "(A is " + " ".join(assertion) + " ^ " + " B is "+ \
                                 " ".join(assertion) +")"
                     else:
                         output = "(" + output+ ")"
                     statements.append(output)
-#        print statements        
+        print statements        
 
         return statements
