@@ -53,18 +53,6 @@ class Parser(object):
                  "or": "^"
                  }
 
-        keywords = {"same": False,
-                    "different": False,
-                    "both": False,
-                    "would": False,
-                    "could": False,
-                    "one": False,
-                    "exactly": False,
-                    "and": False,
-                    "or": False,
-                    "is": False,
-                    "nor": False }
-
         for sentence in logic_statements:
             #clean input
             sentence = re.sub("[^A-Za-z ]", "", sentence)
@@ -87,56 +75,52 @@ class Parser(object):
                     arguments.append(name_map[word])
                 elif word == "I":
                     arguments.append(name_map[words[0]])
+
+
+            if len(assertions) == 1:
+                assert1 = assertions[0]
+                assert2 = assertions[0]
             for word in words:
                 if word in allowed or word in logic:
                     #same, different, both, would, could, one, exactly
                     #nor, not, ^, and, or, is
-                    if word == "one":
-                        output.append("( $ ) ^ ( @ )")                    
-                        is_complex = True
                     if word == "same":
-                        output.append("$ == @")
-                        is_opperands = True
+                        output.append("A == B")
+
                     if word =="different":
-                        output.append("$ != @")
-                        is_opperands = True
+                        output.append("A != B")
+
                     if word == "and":
-                        output.append(" $ and @")
-                        is_complex = True
-                    if word == "or":
-                        output.append("$ ^ @")
-                        is_complex = True
+                        output.append(" A is " +  assert1 + " and B is " +  assert2)
+
+                    if word == "or" or word == "one":
+                        output.append("A is " + assert1 + " ^ B is " + assert2)
+
                     if word == "is":
-                        output.append("$ is @")
-                        is_complex = True
+                        sub = arguments[len(arguments) -1]
+                        output.append(sub +" is " + assert2)
+                        #loook at last output
                     if word == "nor":
-                        output.append("not ( $ ) and not ( @ )")
-                        is_complex = True
+                        output.append("not ( A is "+ assert1+ " ) and not ( B is " + assert2 +" )")
+
                     if word == "are":
-                        output.append("$ is @")
-                        is_complex = True
+                        output.append("B is $")
+                        output.append("A is $")
+
                     if word == "only":
-                            pass
-
-                    if is_opperands:
-                        final = re.sub("\$", arguments[1], output[0])
-                        final = re.sub("\@", arguments[2], final)
-                        is_opperands = False
-
-                        print final
-                        
-                    # CAN WE COMBINE THESE?
-
-            #if and, assert applies to each statement
-            #if is, assert is an equals statement
+                        pass
+                    if word == "not":
+                        pass
 
                         
-#            print arguments
- #           print output
-            count_assert = 0
-            count_operands = 0
+            print arguments
+            print output
+            print assertions
+                
 
-            final_output = ""
+
+
+
             #if and there, combine 
 
             if len(arguments) > 0:

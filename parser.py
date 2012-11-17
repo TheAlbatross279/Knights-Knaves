@@ -103,19 +103,18 @@ class Parser(object):
 
                     #exactly one of us is a knave
                     elif "one" in prefix and "exactly" in prefix:
-                        output = "(A " + " ".join(assertion) + " if not (B " + " ".join(assertion) + \
-                            ")) ^ (B " + " ".join(assertion) + " if not (A " + " ".join(assertion) + \
-                            "))"
-
+                        output = "(A " + " ".join(assertion) + ") ^ (B " + " ".join(assertion) + ")"
+                          
                     #only a knave would say A is a knave
                     elif "would" in prefix:
                         if assertion[0] == "False":
                             output = "not "
+                            assertion.remove(assertion[0])
                         if "A" in prefix and "B" in prefix:
                             if prefix[0] == "A":
-                                output = "(A is True if B " + " ".join(assertion) + ")"
+                                output = "(A  " + " ".join(assertion) + ")"
                             elif prefix[0] == "B":
-                                output = "(B is True if A " + " ".join(assertion) + ")"
+                                output = "(B  " + " ".join(assertion) + ")"
                         else:
                             if "A" in prefix: 
                                 output += "(A " + " ".join(assertion) + ")"
@@ -126,13 +125,11 @@ class Parser(object):
                     elif "case" in prefix:
                         if "not" in prefix:
                             if "A" in prefix:
-                                output = "(not (A" 
+                                output = "(not (A " 
                             elif "B" in prefix: 
-                                output = "(not (B"
-                            output += " " + " ".join(assertion) + "))"
-                        else:
-                            output = " ".join(output[1:])
-
+                                output = "(not (B "
+                            output += " ".join(assertion) + "))"
+                        
                     #are the same or not the same
                     elif "same" in prefix:
                         if "not" in prefix: 
@@ -150,9 +147,9 @@ class Parser(object):
                     #could say that I am knave
                     elif "could" in prefix: 
                         if prefix[0] == "A":
-                            output = "(A is True if B " + " ".join(assertion) + ")"
+                            output = "(B " + " ".join(assertion) + ")"
                         else:
-                            output = "(B is True if A " + " ".join(assertion) + ")"
+                            output = "(A " + " ".join(assertion) + ")"
 
                     #A and B
                     elif "and" in prefix:
@@ -188,3 +185,11 @@ class Parser(object):
         print statements        
 
         return statements
+
+text41 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+You meet two inhabitants: Rex and Marge.  Rex claims, 'Both Marge is a knave and I am a knight.'  Marge says that only a knave would say that Rex is a knave.
+Can you determine who is a knight and who is a knave?'''
+
+p = Parser()
+
+p.convert(text41)
