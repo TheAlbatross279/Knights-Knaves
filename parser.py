@@ -1,11 +1,7 @@
-"""
+import re 
 
-
-"""
-import re
 class Parser(object):
     def convert(self, text):
-        #split paragraphs
         paragraphs = text.split("\n")
 
         #print len(paragraphs)
@@ -14,9 +10,81 @@ class Parser(object):
         #print main_par
         sentences = main_par.split(".")
         
+        name_map = self.get_names(sentences)
+ #       print sentences
+        sentences = self.replace_names(sentences, name_map)
+   #     print sentences
+        sentences = self.remove_intro(sentences)
+
+        sentences = self.replace_knikna(sentences)
+        #print sentences
+        sentences = self.replace_keywords(sentences)
+#        print sentences
+
+        for idx, _ in enumerate(sentences):
+            tmp = self.replace_at_least(sentences[idx])
+
+            if tmp is not None:
+               sentences[idx] = tmp
+            else:
+               sentences[idx] = self.replace_or(sentences[idx])
+           
+            sentences[idx] = self.replace_ne(sentences[idx]) 
+            sentences[idx] = self.replace_eq(sentences[idx]) 
+            sentences[idx] = self.replace_asserts(sentences[idx]) 
+            #if res != None:
+                #print res
+        
+        #its not the case that
+        #its false that
+        #abney could say that
+        #at least one of the following is true
+        
+        
+        #check for simple patterns
+        print sentences[0]
+        print sentences[1]
+
+        statements = []
+        return sentences
+
+#            X                   Y           Z
+#    "(A|B|True|False) asserts (A|B) is (True|False)"
+#    Y is Z if X else not Z
+
+    def replace_asserts(self, sentence):
+        res = re.match(" *(A|B|True|False) +asserts +(A|B) +is +(True|False)", sentence)
+
+        if res is not None:
+            return res.group(2) + " is " + res.group(3) + " if " + res.group(1) + " else not " + res.group(3)
+
+        return sentence
+
+    def replace_eq(self, sentence):
+        if len(re.findall("((True|False) +\^ +(False|True)|is the same)", sentence)) > 0:
+            return "A is B"
+        else:
+            return sentence
+
+    def replace_ne(self, sentence):
+        if len(re.findall("(exactly one is|is different|not the same)", sentence)) > 0:
+            return "A != B"
+        else:
+            return sentence
+
+    def replace_or(self, sentence):
+        sentence = re.sub("[eE]ither ", " ", sentence)
+        return re.sub(" or ", " ^ ", sentence)
+
+    def replace_at_least(self, sentence):
+        sentence, n = re.subn("[aA]t least one  the following is true ", "", sentence)
+
+        return sentence if n > 0 else None
+
+    def get_names(self, sentences) :
         for sent in sentences: 
             sent = re.sub("[^A-Za-z ]", "", sent)
-            print sent
+         #   print sent
 
         #parse names
         names = []
@@ -24,8 +92,6 @@ class Parser(object):
         for word in words:
             if re.findall("[A-Z*.]", word) and word != "You":
                 names.append(word)
-
-        #print names
         symbol_names = ["A", "B"]
 
         name_map = dict()
@@ -34,162 +100,61 @@ class Parser(object):
         for ndx in range(0, len(names)):
             name_map[names[ndx]] = symbol_names[ndx]
 
-        statements = []
+        return name_map
 
-        #parse first statement
-        allowed = ["one", "we", "I", 
-                   "nor", "both", "could", "would",
-                   "case", "is", "same", "different",
-                   "exactly", "and"]
+    def replace_names(self, sentences, name_map):
+        temp_sentences = sentences[1:]
+        valid_sentences = []
+
+        #replace names
+        for sent in temp_sentences:
+            for name, sym in name_map.items():
+                sent = re.sub(name, sym, sent)
+            valid_sentences.append(sent)
+        return valid_sentences
+
+    def remove_intro(self, sentences):
+        cleaned = []
+        for sent in sentences:
+            sent = re.sub("(.*(?:claims|tells you|says),? (?:that)?)", "", sent)
+            sent = re.sub("[^A-Za-z ]", "", sent)
+            if len(sent) != 0:
+                cleaned.append(sent)
+        return cleaned
+
+    def replace_keywords(self, sentences):
+        cleans = []
+        for sent in sentences:
+            if sent == sentences[0]:
+                sent = re.sub("I ", " A ", sent)
+            elif sent == sentences[1]:
+                sent = re.sub("I ", " B ", sent)
+            sent = re.sub("[Oo]nly ", " ", sent)
+            sent = re.sub(" (would|could) (say|claim|tell you) that ", " asserts ", sent)
+            sent = re.sub("[iI]ts (not the case|false) that ", " not ", sent)
+            sent = re.sub(" are ", " is ", sent)
+            sent = re.sub(" a ", " ", sent)
+            sent = re.sub("[bB]oth ", " ", sent)
+            sent = re.sub("[oO]f ", " ", sent)
+            sent = re.sub("[nN]either", " ", sent)
+            sent = re.sub(" am ", " is ", sent)
+            sent = re.sub(" that ", " ", sent)
+            cleans.append(sent)
+        return cleans 
+
+
+    def replace_knikna(self, sentences):
+        cleans = []
+        for sent in sentences:
+            sent = re.sub("[kK]naves?", "False", sent)
+            sent = re.sub("[kK]nights?", "True", sent)
+            cleans.append(sent)
+        return cleans
         
-        logic = {"are": "is",
-                 "false": "not", 
-                 "am": "is",
-                 "or": "^"
-                 }
-        
-        for sentence in sentences:
-            cleaned = []
-            if sentence != sentences[0]:
-                sentence = re.sub("[^A-Za-z ]", "", sentence)
-                sentence = sentence.strip()
-                words = sentence.split(" ")
-                for word in words: 
-                    if word == "knaves" or word == "knave":
-                        cleaned.append("False")
-                    elif word == "knight" or word == "knights":
-                        cleaned.append("True")
-                    elif word in names:
-                        cleaned.append(name_map[word])
-                    elif word == "I":
-                        cleaned.append(name_map[words[0]])
-                    elif word in allowed:
-                        cleaned.append(word)
-                    elif word in logic:
-                        cleaned.append(logic[word])
 
-                #trim off first name
-                cleaned = cleaned[1:]
-                #print cleaned        
-                #print "DONE GATHERING.."
-                if len(cleaned) > 0:
-                    output =  " ".join(cleaned)
-
-                    assertion = []
-                    prefix = []
-
-                    words = output.split(" ")
-                    
-                    #split it into the assertion (is false or is true) and the prefix
-                    for word in words: 
-                        if word == "is" or word == "False" or word == "True":
-                            assertion.append(word)
-                        else:
-                            prefix.append(word)
-
-                    #print assertion
-                    #print prefix
-
-                    #it is false that B is a knave
-                    if "not" in prefix:
-                        if "B" in prefix: 
-                            output = "not (B " + " ".join(assertion) +")"
-                        if "A" in prefix: 
-                            output = "not (A " + " ".join(assertion) +")"
-
-                    #A nor B is False
-                    if "nor" in prefix: 
-                        output = "not (A " + " ".join(assertion) + ") and not (B " + " ".join(assertion) + ")"
-
-                    #exactly one of us is a knave
-                    elif "one" in prefix and "exactly" in prefix:
-                        output = "(A " + " ".join(assertion) + ") ^ (B " + " ".join(assertion) + ")"
-                          
-                    #only a knave would say A is a knave
-                    elif "would" in prefix:
-                        if assertion[0] == "False":
-                            output = "not "
-                            assertion.remove(assertion[0])
-                        if "A" in prefix and "B" in prefix:
-                            if prefix[0] == "A":
-                                output = "(A  " + " ".join(assertion) + ")"
-                            elif prefix[0] == "B":
-                                output = "(B  " + " ".join(assertion) + ")"
-                        else:
-                            if "A" in prefix: 
-                                output += "(A " + " ".join(assertion) + ")"
-                            if "B" in prefix: 
-                                output += "(B " + " ".join(assertion) + ")"
-
-                    #! the case that A is False
-                    elif "case" in prefix:
-                        if "not" in prefix:
-                            if "A" in prefix:
-                                output = "(not (A " 
-                            elif "B" in prefix: 
-                                output = "(not (B "
-                            output += " ".join(assertion) + "))"
-                        
-                    #are the same or not the same
-                    elif "same" in prefix:
-                        if "not" in prefix: 
-                            output = "(A != B)"
-                        else:
-                            output = "(A == B)" 
-
-
-                    elif "different" in prefix:
-                        if "not" in prefix: 
-                            output = "(A == B)"
-                        else:
-                            output = "(A != B)" 
-                            
-                    #could say that I am knave
-                    elif "could" in prefix: 
-                        if prefix[0] == "A":
-                            output = "(B " + " ".join(assertion) + ")"
-                        else:
-                            output = "(A " + " ".join(assertion) + ")"
-
-                    #A and B
-                    elif "and" in prefix:
-                        if "both" in prefix: 
-                            output1 = ""
-                            output2 = ""
-                            #print assertion
-                            if "True" in assertion:
-                                output1 = "(A is True and B is True)"
-                            if "False" in assertion:
-                                output2 = "(A is False and B is False)" 
-                            if "^" in prefix :
-                                output2 = " ^ " + output2
-                            output = output1 + output2
-                        else:
-                            output = "(A " + " ".join(assertion) + " and B " + " ".join(assertion) + ")"
-
-                    #A or B
-                    elif "^" in prefix:
-                        if len(assertion) > 2:
-                            assertions = []
-                            for word in assertion:
-                                #print word
-                                if word == "True" or word == "False":
-                                    assertions.append(word)
-                            output = "(A is " + assertions[0] + " ^ " + "B is " + assertions[1] +")"
-                        else:
-                            output = "(A is " + " ".join(assertion) + " ^ " + " B is "+ \
-                                " ".join(assertion) +")"
-                    else:
-                        output = "(" + output+ ")"
-                    statements.append(output)
-        print statements        
-
-        return statements
-
-text41 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
-You meet two inhabitants: Rex and Marge.  Rex claims, 'Both Marge is a knave and I am a knight.'  Marge says that only a knave would say that Rex is a knave.
+text = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+You meet two inhabitants: Zoey and Mel. Zoey tells you that Mel is a knave. Mel says, `Neither Zoey nor I are knaves.'
 Can you determine who is a knight and who is a knave?'''
 
-p = Parser()
-
-p.convert(text41)
+#p = Parser()
+#p.convert(text)
