@@ -1,4 +1,4 @@
-from parser3 import Parser
+from parser import Parser
 
 text = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Zoey and Mel. Zoey tells you that Mel is a knave. Mel says, `Neither Zoey nor I are knaves.'

@@ -6,16 +6,13 @@ text = '''A very special island is inhabited only by knights and knaves. Knights
 You meet two inhabitants: Zoey and Mel. Zoey tells you that Mel is a knave. Mel says, `Neither Zoey nor I are knaves.'
 Can you determine who is a knight and who is a knave?'''
 
-
 text2 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Peggy and Zippy.  Peggy tells you that 'of Zippy and I, exactly one is a knight'.  Zippy tells you that only a knave would say that Peggy is a knave.
 Can you determine who is a knight and who is a knave?'''
 
-
 text3 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Sue and Zippy.  Sue says that Zippy is a knave.  Zippy says, 'I and Sue are knights.'
 Can you determine who is a knight and who is a knave?'''
-
 
 text4 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Sally and Zippy.  Sally claims, 'I and Zippy are not the same.'  Zippy says, 'Of I and Sally, exactly one is a knight.'
@@ -24,7 +21,6 @@ Can you determine who is a knight and who is a knave?'''
 text5 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Homer and Bozo.  Homer tells you, 'At least one of the following is true: that I am a knight or that Bozo is a knight.'  Bozo claims, 'Homer could say that I am a knave.'
 Can you determine who is a knight and who is a knave?'''
-
 
 text6 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Marge and Zoey.  Marge says, 'Zoey and I are both knights or both knaves.'  Zoey claims, 'Marge and I are the same.'
@@ -38,16 +34,13 @@ text11 = '''A very special island is inhabited only by knights and knaves. Knigh
 You meet two inhabitants: Zed and Alice.  Zed tells you, 'I am a knight or Alice is a knave.'  Alice tells you, 'Of Zed and I, exactly one is a knight.'
 Can you determine who is a knight and who is a knave?'''
 
-
 text8 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Ted and Zeke.  Ted claims, 'Zeke could say that I am a knave.'  Zeke claims that it's not the case that Ted is a knave.
 Can you determine who is a knight and who is a knave?'''
 
-
 text9 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Ted and Zippy.  Ted says, 'Of I and Zippy, exactly one is a knight.'  Zippy says that Ted is a knave.
 Can you determine who is a knight and who is a knave?'''
-
 
 text10 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Zed and Bart.  Zed says, 'Bart is a knight or I am a knight.'  Bart tells you, 'Zed could claim that I am a knave.'
@@ -92,7 +85,6 @@ Can you determine who is a knight and who is a knave?'''
 text21 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Sue and Marge.  Sue says that Marge is a knave.  Marge claims, 'Sue and I are not the same.'
 Can you determine who is a knight and who is a knave?'''
-
 
 text22 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Bob and Ted.  Bob says, 'I am a knight or Ted is a knave.'  Ted says that only a knave would say that Bob is a knave.
@@ -202,7 +194,6 @@ text48 = '''A very special island is inhabited only by knights and knaves. Knigh
 You meet two inhabitants: Betty and Sally.  Betty says, 'At least one of the following is true: that Sally is a knight or that I am a knight.'  Sally claims, 'I and Betty are not the same.'
 Can you determine who is a knight and who is a knave?'''
 
-
 text49 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Bob and Bill.  Bob says, 'Bill is a knave.'  Bill says, 'Bob and I are different.'
 Can you determine who is a knight and who is a knave?'''
@@ -216,83 +207,16 @@ list = [text, text2, text3, text4, text5, text6, text7, text8, text9, text10, te
         text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, 
         text41, text42, text43, text44, text45, text46, text47, text48, text49, text50]
 
-results = [
-['(B is False)', 'not (A is False) and not (B is False)'],
-['(A is True if not (B is True)) ^ (B is True if not (A is True))', 'not (A is False)'],
-['(B is False)', '(A is True and B is True)'],
-['(A != B)', '(A is True if not (B is True)) ^ (B is True if not (A is True))'],
-['(A is True ^ B is True)', '(A is True if B is False)'],
-['(A is True and B is True) ^ (A is False and B is False)', '(A == B)'],
-['(A is True ^ B is True)', '(A is False)'],
-['(B is True if A is False)', '(not (A is False))'],
-['(A is True if not (B is True)) ^ (B is True if not (A is True))', '(A is False)'],
-['(A is True ^ B is True)', '(A is True if B is False)'],
-['(A is True ^ B is False)', '(A is True if not (B is True)) ^ (B is True if not (A is True))'],
-['(B is False)', '(A is True ^ B is True)'],
-['(A is True and B is True) ^ (A is False and B is False)', '(A is True if B is False)'],
-['(A is True and B is False)', '(B is True if A is True)'], # Broken
-['(B is False)', '(A is True ^ B is True)'], ###
-['(A is True ^ B is False)', 'not (A is False)'], ###
-['(B is True if A is True)', '(not (A is False))'],
-['(A is False ^ B is True)', '(A is True if not (B is True)) ^ (B is True if not (A is True))'],#
-['(A is True if not (B is True)) ^ (B is True if not (A is True))', '(A is True if B is True)'],
-['(not (B is False))', '(A != B)'],
-['(B is False)', '(A != B)'],
-['(A is True ^ B is False)', 'not (A is False)'], 
-['(B is False)', '(A is True ^ B is True)'],
-['(A is True and B is False)', '(A is True if B is True)'], ### broken
-['(A is True and B is True)', '(B is True if A is True)'],
-['(A != B)', 'not (A is False)'], ### broken
-['not (B is False)', '(A != B)'], ### broken
-['(A is True if B is False)', '(A is True ^ B is False)'],
-['not (A is False) and not (B is False)', '(A == B)'],
-['(A != B)', 'not (A is False)'],###broken
-['(A != B)', '(A is True ^ B is True)'],
-['(A is True if B is True)', '(not (A is False))'],
-['(A != B)', '(not (A is False))'],
-['(A is True if B is True)', '(A is False)'],
-['(A != B)', '(A is True and B is True) ^ (A is False and B is False)'],
-['(A != B)', '(B is True if A is False)'],
-['(A is True ^ B is False)', '(B is True if A is False)'],
-['(A != B)', '(A is True ^ B is False)'],
-['(A is True and B is True) ^ (A is False and B is False)', '(A == B)'],
-['(A is False ^ B is True)', '(not (A is False))'],
-['(A is False and B is True)', 'not (A False is False)'], ###broken
-['(not (B is False))', '(A != B)'],
-['(A is True and B is False)', '(B is True if A is True)'], ###broken
-['(A is False ^ B is True)', '(A is True if B is False)'], ##check order
-['(A is True and B is True) ^ (A is False and B is False)', 'not (A is False)'],###broken
-['(not (B is False))', '(B is True if A is False)'],
-['(B is False)', '(A is True if not (B is True)) ^ (B is True if not (A is True))'],
-['(A is True ^ B is True)', '(A != B)'],
-['(B is False)', '(A != B)'],
-['(B is False)', '(A is True if B is False)']
-    ]
-
 retrieved = []
 p = Parser();
-for t in list:
- #   print "TESTING text....."
+for ndx, t in enumerate(list):
     statements = p.convert(t)    
-    retrieved.append(statements)
-#    print "DONE"
 
-for ndx in range(0, len(retrieved)):
-    fail = False
+    print t
+    
     print "Testing results..." + str(ndx)
-    if retrieved[ndx][0] != results[ndx][0]:
-        fail = True
-        print "Error: "
-        print "     " + retrieved[ndx][0]
-        print  "     " + results[ndx][0]
-    if retrieved[ndx][1] != results[ndx][1]:
-        fail = True
-        print "Error: "
-        print  "     " + retrieved[ndx][1]
-        print  "     " + results[ndx][1]
-    if not fail:
-        try:
-            print evaluate_puzzle(retrieved[ndx])
-        except SyntaxError:
-            print "Syntax Error", traceback.format_exc()
+    try:
+        print evaluate_puzzle(statements)
+    except SyntaxError:
+        print "Syntax Error", traceback.format_exc()
     print

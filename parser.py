@@ -32,6 +32,7 @@ class Parser(object):
             sentences[idx] = self.replace_ne(sentences[idx]) 
             sentences[idx] = self.replace_eq(sentences[idx]) 
             sentences[idx] = self.replace_asserts(sentences[idx]) 
+            sentences[idx] = self.replace_nor(sentences[idx]) 
             #if res != None:
                 #print res
         
@@ -42,11 +43,19 @@ class Parser(object):
         
         
         #check for simple patterns
-        print sentences[0]
-        print sentences[1]
+#        print sentences[0]
+#        print sentences[1]
 
         statements = []
         return sentences
+
+    def replace_nor(self, sentence):
+        res = re.match(" +(A|B) +nor +(A|B) is +(True|False)", sentence)
+
+        if res is not None:
+            return "A is not " + res.group(3) + " and B is not " + res.group(3)
+        else:
+            return sentence
 
 #            X                   Y           Z
 #    "(A|B|True|False) asserts (A|B) is (True|False)"
