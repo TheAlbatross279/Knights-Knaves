@@ -19,17 +19,41 @@ class Parser(object):
         sentences = self.replace_knikna(sentences)
         #print sentences
         sentences = self.replace_keywords(sentences)
-        print sentences
+#        print sentences
 
-
-
+        for sent in sentences:
+            res = self.check_a_is_true(sent)
+            
+            if res != None:
+                print res
+        
         #its not the case that
         #its false that
         #abney could say that
+        #at least one of the following is true
+        
         
         #check for simple patterns
         statements = []
         return sentences
+
+
+    def check_a_is_true(self, sentence):
+        reg = "(A|B) +is +(True|False)"
+        results = re.findall(reg, sentence)
+        
+        if len(results) > 0:
+            return sentence
+        else:
+            return None
+
+
+
+
+
+
+
+
 
     def get_names(self, sentences) :
         for sent in sentences: 
@@ -79,11 +103,15 @@ class Parser(object):
                 sent = re.sub("I ", " A ", sent)
             elif sent == sentences[1]:
                 sent = re.sub("I ", " B ", sent)
+            sent = re.sub(" (would|could) (say|claim|tell you) that ", " asserts ", sent)
+            sent = re.sub("[iI]ts (not the case|false) that ", " not ", sent)
             sent = re.sub(" are ", " is ", sent)
             sent = re.sub(" a ", " ", sent)
+            sent = re.sub("[bB]oth ", " ", sent)
             sent = re.sub(" [oO]f ", " ", sent)
-            sent = re.sub("[nN]either", "", sent)
+            sent = re.sub("[nN]either", " ", sent)
             sent = re.sub(" am ", " is ", sent)
+            sent = re.sub(" that ", " ", sent)
             cleans.append(sent)
         return cleans 
 
