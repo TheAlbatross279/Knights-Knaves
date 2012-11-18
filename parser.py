@@ -22,6 +22,7 @@ class Parser(object):
 #        print sentences
 
         for idx, _ in enumerate(sentences):
+            sentences[idx] = "( " + sentences[idx] + " )"
             tmp = self.replace_at_least(sentences[idx])
 
             if tmp is not None:
@@ -30,7 +31,7 @@ class Parser(object):
                sentences[idx] = self.replace_or(sentences[idx])
            
             sentences[idx] = self.replace_ne(sentences[idx]) 
-            sentences[idx] = self.replace_eq(sentences[idx]) 
+            sentences[idx] = self.replace_eq(sentences[idx])
             sentences[idx] = self.replace_asserts(sentences[idx]) 
             sentences[idx] = self.replace_nor(sentences[idx]) 
             #if res != None:
@@ -50,10 +51,10 @@ class Parser(object):
         return sentences
 
     def replace_nor(self, sentence):
-        res = re.match(" +(A|B) +nor +(A|B) is +(True|False)", sentence)
+        res = re.search("(A|B) +nor +(A|B) is +(True|False)", sentence)
 
         if res is not None:
-            return "A is not " + res.group(3) + " and B is not " + res.group(3)
+            return "(A is not " + res.group(3) + ") and (B is not " + res.group(3) + ")"
         else:
             return sentence
 
@@ -62,7 +63,7 @@ class Parser(object):
 #    Y is Z if X else not Z
 
     def replace_asserts(self, sentence):
-        res = re.match(" *(A|B|True|False) +asserts +(A|B) +is +(True|False)", sentence)
+        res = re.search("(A|B|True|False) +asserts +(A|B) +is +(True|False)", sentence)
 
         if res is not None:
             return res.group(2) + " is " + res.group(3) + " if " + res.group(1) + " else not " + res.group(3)
@@ -83,7 +84,7 @@ class Parser(object):
 
     def replace_or(self, sentence):
         sentence = re.sub("[eE]ither ", " ", sentence)
-        return re.sub(" or ", " ^ ", sentence)
+        return re.sub(" or ", " ) ^ ( ", sentence)
 
     def replace_at_least(self, sentence):
         sentence, n = re.subn("[aA]t least one  the following is true ", "", sentence)
