@@ -207,8 +207,65 @@ list = [text, text2, text3, text4, text5, text6, text7, text8, text9, text10, te
         text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, 
         text41, text42, text43, text44, text45, text46, text47, text48, text49, text50]
 
+list2 = [
+"A is a knight and B is a knave",
+"A is a knave and B is a knave",
+"A is a knight and B is a knave",
+"A is a knave and B is a knave",
+"A is a knave and B is a knave",
+"A is a knight and B is a knight",
+"A is a knight and B is a knave",
+"A is a knave and B is a knight",
+"A is a knave and B is a knave",
+"A is a knight and B is a knave",
+"A is a knave and B is a knave",
+"A is a knave and B is a knight",
+"A is a knave and B is a knight",
+"A is a knight and B is a knave",
+"A is a knight and B is a knave",
+"A is a knight and B is a knight",
+"A is a knight and B is a knight",
+"A is a knave and B is a knight",
+"A is a knight and B is a knave",
+"A is a knave and B is a knave",
+"A is a knave and B is a knight",
+"A is a knight and B is a knight",
+"A is a knave and B is a knight",
+"A is a knight and B is a knave",
+"A is a knight and B is a knight",
+"A is a knave and B is a knave",
+"A is a knave and B is a knave",
+"A is a knight and B is a knave",
+"A is a knight and B is a knight",
+"A is a knave and B is a knave",
+"A is a knave and B is a knave",
+"A is a knight and B is a knave",
+"A is a knight and B is a knave",
+"A is a knave and B is a knight",
+"A is a knight and B is a knave",
+"A is a knave and B is a knave",
+"A is a knave and B is a knight",
+"A is a knight and B is a knave",
+"A is a knight and B is a knight",
+"A is a knight and B is a knight",
+"A is a knave and B is a knave",
+"A is a knave and B is a knave",
+"A is a knight and B is a knave",
+"A is a knave and B is a knight",
+"A is a knight and B is a knave",
+"A is a knave and B is a knave",
+"A is a knave and B is a knight",
+"A is a knave and B is a knave",
+"A is a knave and B is a knight",
+"A is a knave and B is a knight"]
+
+
 retrieved = []
 p = Parser();
+
+
+
+calculated =[] 
 for ndx, t in enumerate(list):
     statements = p.convert(t)    
 
@@ -216,7 +273,38 @@ for ndx, t in enumerate(list):
     
     print "Testing results..." + str(ndx)
     try:
-        print evaluate_puzzle(statements)
+        results = evaluate_puzzle(statements)
+        print results
     except SyntaxError:
         print "Syntax Error", traceback.format_exc()
     print
+
+    if results[0] == True:
+        result =  "A is a knight and B is a knave"
+    elif results[1] == True:
+        result = "A is a knave and B is a knight"
+    elif results[2] == True:
+        result = "A is a knight and B is a knight"
+    elif results[3] == True:
+        result = "A is a knave and B is a knave"
+    else:
+        result = "Indeterminate"
+        print "indeterminate"
+        print statements
+
+    calculated.append(result)
+
+count = 0
+for ndx in range(0,len(list2)):
+    print "Testing #%d" %(ndx)
+    if calculated[ndx] == list2[ndx]:
+       print "Same"
+       count +=1
+    else: 
+        print "DIFFERENCE: " 
+        print calculated[ndx]
+        print list2[ndx]
+
+        
+            
+print "count: %d total: %d" % (count,  len(list2))
