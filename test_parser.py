@@ -263,21 +263,22 @@ list2 = [
 retrieved = []
 p = Parser();
 
+count = 0
 
 
 calculated =[] 
 for ndx, t in enumerate(list):
     statements = p.convert(t)    
 
-    print t
+#    print t
     
-    print "Testing results..." + str(ndx)
+#    print "Testing results..." + str(ndx)
     try:
         results = evaluate_puzzle(statements)
-        print results
+#        print results
     except SyntaxError:
-        print "Syntax Error", traceback.format_exc()
-    print
+        print "Syntax Error on #%d" % (ndx), traceback.format_exc()
+#    print
 
     if results[0] == True:
         result =  "A is a knight and B is a knave"
@@ -289,21 +290,23 @@ for ndx, t in enumerate(list):
         result = "A is a knave and B is a knave"
     else:
         result = "Indeterminate"
-        print "indeterminate"
-        print statements
+#        print "indeterminate"
+#        print statements
 
-    calculated.append(result)
-
-count = 0
-for ndx in range(0,len(list2)):
-    print "Testing #%d" %(ndx)
-    if calculated[ndx] == list2[ndx]:
-       print "Same"
+#    print "Testing #%d" %(ndx)
+    if result == list2[ndx]:
+#       print "Same"
        count +=1
     else: 
-        print "DIFFERENCE: " 
-        print calculated[ndx]
+        print "Test #%d failed: " %(ndx)
+        print t
+        print statements
+        print results
+        print 
+        print result
+        print "---"
         print list2[ndx]
+        print
 
         
             
