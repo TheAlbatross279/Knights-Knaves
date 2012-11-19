@@ -41,8 +41,8 @@ def main():
       if val == "B":
          bval = key
 
-   result = re.sub("A", aval, result)
-   result = re.sub("B", bval, result)
+   result = re.sub("A", aval.lower(), result)
+   result = re.sub("B", bval.lower(), result)
 
    print "\nRESULT:"
    print result
