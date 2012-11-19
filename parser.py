@@ -53,7 +53,7 @@ class Parser(object):
 #        print sentences[1]
 
         statements = []
-        return sentences
+        return sentences, name_map
 
     def replace_and(self, sentence):
         sentence = re.sub("A +and +B (.*)", r"(A \g<1>) and (B \g<1>)", sentence)
