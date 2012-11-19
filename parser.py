@@ -22,7 +22,11 @@ class Parser(object):
 #        print sentences
 
         for idx, _ in enumerate(sentences):
-            sentences[idx] = "( " + sentences[idx] + " )"
+            subject = "A" if idx is 0 else "B"
+#            sentences[idx] = "( " + sentences[idx] + " )"
+
+            sentences[idx] = self.replace_both(sentences[idx]) 
+
             tmp = self.replace_at_least(sentences[idx])
 
             if tmp is not None:
@@ -32,8 +36,9 @@ class Parser(object):
            
             sentences[idx] = self.replace_ne(sentences[idx]) 
             sentences[idx] = self.replace_eq(sentences[idx])
-            sentences[idx] = self.replace_asserts(sentences[idx]) 
+            sentences[idx] = self.replace_asserts(sentences[idx], subject) 
             sentences[idx] = self.replace_nor(sentences[idx]) 
+            sentences[idx] = self.replace_and(sentences[idx]) 
             #if res != None:
                 #print res
         
@@ -50,6 +55,16 @@ class Parser(object):
         statements = []
         return sentences
 
+    def replace_and(self, sentence):
+        sentence = re.sub("A +and +B (.*)", r"(A \g<1>) and (B \g<1>)", sentence)
+        return re.sub("(.*) +and +(.*)", r"(\g<1>) and (\g<2>)", sentence)
+
+    def replace_both(self, sentence):
+        if re.search("both (True|False) or both (True|False)", sentence) is not None:
+            return "A is B"
+        else:
+            return re.sub("[bB]oth", "", sentence)
+
     def replace_nor(self, sentence):
         res = re.search("(A|B) +nor +(A|B) is +(True|False)", sentence)
 
@@ -58,15 +73,22 @@ class Parser(object):
         else:
             return sentence
 
-#            X                   Y           Z
-#    "(A|B|True|False) asserts (A|B) is (True|False)"
-#    Y is Z if X else not Z
-
-    def replace_asserts(self, sentence):
-        res = re.search("(A|B|True|False) +asserts +(A|B) +is +(True|False)", sentence)
+    def replace_asserts(self, sentence, subject):
+        res = re.search("(A|B) +asserts (.*)", sentence)
 
         if res is not None:
-            return res.group(2) + " is " + res.group(3) + " if " + res.group(1) + " else not " + res.group(3)
+            #return "( " + res.group(2) + ") is " + res.group(1)
+            ret =  "( " + res.group(2) + ") "
+            ret += ("is " + res.group(1)) if res.group(1) is not subject and re.match("(True|False)", res.group(1)) is None else ""
+            return ret
+
+        res = re.search("(True|False) +asserts (.*)", sentence)
+
+        if res is not None:
+            if res.group(1) is "True":
+                return res.group(2)
+            else:
+                return "not (" + res.group(2) + ")"
 
         return sentence
 
@@ -84,10 +106,10 @@ class Parser(object):
 
     def replace_or(self, sentence):
         sentence = re.sub("[eE]ither ", " ", sentence)
-        return re.sub(" or ", " ) ^ ( ", sentence)
+        return re.sub("(.*) +or +(.*)", r"( \g<1> ) ^ ( \g<2> )", sentence)
 
     def replace_at_least(self, sentence):
-        sentence, n = re.subn("[aA]t least one  the following is true ", "", sentence)
+        sentence, n = re.subn("[aA]t least one  the following is true +(.*) +or +(.*)", r"(\g<1>) or (\g<2>)", sentence)
 
         return sentence if n > 0 else None
 
@@ -141,10 +163,10 @@ class Parser(object):
                 sent = re.sub("I ", " B ", sent)
             sent = re.sub("[Oo]nly ", " ", sent)
             sent = re.sub(" (would|could) (say|claim|tell you) that ", " asserts ", sent)
-            sent = re.sub("[iI]ts (not the case|false) that ", " not ", sent)
+            sent = re.sub("[iI]ts (?:not the case|false) that (.*)", r' not ( \g<1> )', sent)
             sent = re.sub(" are ", " is ", sent)
             sent = re.sub(" a ", " ", sent)
-            sent = re.sub("[bB]oth ", " ", sent)
+#            sent = re.sub("[bB]oth ", " ", sent)
             sent = re.sub("[oO]f ", " ", sent)
             sent = re.sub("[nN]either", " ", sent)
             sent = re.sub(" am ", " is ", sent)
