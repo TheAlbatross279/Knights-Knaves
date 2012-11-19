@@ -268,7 +268,7 @@ count = 0
 
 calculated =[] 
 for ndx, t in enumerate(list):
-    statements = p.convert(t)    
+    statements, _ = p.convert(t)    
 
 #    print t
     
