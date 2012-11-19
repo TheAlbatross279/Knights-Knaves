@@ -30,10 +30,6 @@ text7 = '''A very special island is inhabited only by knights and knaves. Knight
 You meet two inhabitants: Mel and Ted.  Mel tells you, 'Either Ted is a knight or I am a knight.'  Ted tells you that Mel is a knave.
 Can you determine who is a knight and who is a knave?'''
 
-text11 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
-You meet two inhabitants: Zed and Alice.  Zed tells you, 'I am a knight or Alice is a knave.'  Alice tells you, 'Of Zed and I, exactly one is a knight.'
-Can you determine who is a knight and who is a knave?'''
-
 text8 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Ted and Zeke.  Ted claims, 'Zeke could say that I am a knave.'  Zeke claims that it's not the case that Ted is a knave.
 Can you determine who is a knight and who is a knave?'''
@@ -44,6 +40,10 @@ Can you determine who is a knight and who is a knave?'''
 
 text10 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 You meet two inhabitants: Zed and Bart.  Zed says, 'Bart is a knight or I am a knight.'  Bart tells you, 'Zed could claim that I am a knave.'
+Can you determine who is a knight and who is a knave?'''
+
+text11 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+You meet two inhabitants: Zed and Alice.  Zed tells you, 'I am a knight or Alice is a knave.'  Alice tells you, 'Of Zed and I, exactly one is a knight.'
 Can you determine who is a knight and who is a knave?'''
 
 text12 = '''A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
@@ -202,7 +202,7 @@ text50 = '''A very special island is inhabited only by knights and knaves. Knigh
 You meet two inhabitants: Abe and Homer.  Abe tells you that Homer is a knave.  Homer says, 'Abe could say that I am a knave.'
 Can you determine who is a knight and who is a knave?'''
 
-list = [text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, 
+list = [text, text2, text3, text4, text5, text6, text7, text11, text8, text9, text10, text12, 
         text13, text14, text15, text16, text17, text18, text19, text20, text21, text22, text23, text24,
         text25, text26, text27, text28, text29, text30, text31, text32, text33, text34, text35, text36, text37, text38, text39, text40, 
         text41, text42, text43, text44, text45, text46, text47, text48, text49, text50]
@@ -215,10 +215,10 @@ list2 = [
 "A is a knave and B is a knave",
 "A is a knight and B is a knight",
 "A is a knight and B is a knave",
+"A is a knave and B is a knight",
 "A is a knave and B is a knave",
 "A is a knight and B is a knave",
 "A is a knave and B is a knave",
-"A is a knave and B is a knight",
 "A is a knave and B is a knight",
 "A is a knave and B is a knight",
 "A is a knave and B is a knave",
@@ -302,9 +302,10 @@ for ndx, t in enumerate(list):
 
 #    print "Testing #%d" %(ndx)
     if result == list2[ndx]:
-       print "Test #%d passed: " %(ndx + 1)
-       print result
-       print
+#       print "Test #%d passed: " %(ndx + 1)
+#       print t
+#       print result
+#       print
        count +=1
     else: 
         print "Test #%d failed: " %(ndx + 1)
