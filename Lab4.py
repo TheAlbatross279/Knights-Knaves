@@ -11,14 +11,14 @@ def main():
    puzzle_file = open(sys.argv[1], "r")
 
    contents = puzzle_file.read()
+   print "PUZZLE:"
+   print contents
 
    # :) 
    modified_contents = re.sub("\n\n", "\n", contents)
    
    p = Parser()
-
-   statements = p.convert(modified_contents)
-
+   statements, name_map = p.convert(modified_contents)
    results = evaluate_puzzle(statements)
 
    if results[0] == True:
@@ -32,6 +32,19 @@ def main():
    else:
       result = "Indeterminate"
 
+   aval = ""
+   bval = ""
+
+   for key, val in name_map.iteritems():
+      if val == "A":
+         aval = key
+      if val == "B":
+         bval = key
+
+   result = re.sub("A", aval, result)
+   result = re.sub("B", bval, result)
+
+   print "\nRESULT:"
    print result
 
    puzzle_file.close()
