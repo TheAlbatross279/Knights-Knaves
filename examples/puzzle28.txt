@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Mel and Homer.  Mel tells you, 'I would tell you that Homer is a knave.'  Homer tells you, 'Either I am a knight or Mel is a knave.'
+
+Can you determine who is a knight and who is a knave?

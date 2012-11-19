@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Sue and Joe.  Sue says, 'I and Joe are different.'  Joe claims, 'It's false that Sue is a knave.'
+
+Can you determine who is a knight and who is a knave?

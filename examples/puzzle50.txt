@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Abe and Homer.  Abe tells you that Homer is a knave.  Homer says, 'Abe could say that I am a knave.'
+
+Can you determine who is a knight and who is a knave?

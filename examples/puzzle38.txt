@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Alice and Zippy.  Alice says, 'Zippy and I are not the same.'  Zippy claims, 'I am a knight or Alice is a knave.'
+
+Can you determine who is a knight and who is a knave?

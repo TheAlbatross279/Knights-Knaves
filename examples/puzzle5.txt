@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Homer and Bozo.  Homer tells you, 'At least one of the following is true: that I am a knight or that Bozo is a knight.'  Bozo claims, 'Homer could say that I am a knave.'
+
+Can you determine who is a knight and who is a knave?

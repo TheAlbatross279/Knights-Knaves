@@ -1,5 +1,0 @@
-A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
-
-You meet two inhabitants: Zed and Alice. Zed tells you, `Alice could say that I am a knight.' Alice claims, `It's not the case that Zed is a knave.'
-
-Can you determine who is a knight and who is a knave?

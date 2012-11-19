@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Homer and Bill.  Homer tells you that it's not the case that Bill is a knave.  Bill tells you, 'Homer and I are not the same.'
+
+Can you determine who is a knight and who is a knave?

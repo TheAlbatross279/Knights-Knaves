@@ -1,5 +1,0 @@
-A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
-
-You meet two inhabitants: Zeke and Dave. Zeke tells you, `Of I and Dave, exactly one is a knight.' Dave claims, `Zeke could claim that I am a knight.'
-
-Can you determine who is a knight and who is a knave?
