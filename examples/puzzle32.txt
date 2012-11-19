@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Rex and Abe.  Rex tells you, 'I would tell you that Abe is a knight.'  Abe tells you that it's false that Rex is a knave.
+
+Can you determine who is a knight and who is a knave?

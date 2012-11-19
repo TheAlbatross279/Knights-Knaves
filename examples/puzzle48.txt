@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Betty and Sally.  Betty says, 'At least one of the following is true: that Sally is a knight or that I am a knight.'  Sally claims, 'I and Betty are not the same.'
+
+Can you determine who is a knight and who is a knave?

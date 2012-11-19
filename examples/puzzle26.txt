@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Bozo and Marge.  Bozo tells you, 'Marge and I are different.'  Marge says that only a knave would say that Bozo is a knave.
+
+Can you determine who is a knight and who is a knave?

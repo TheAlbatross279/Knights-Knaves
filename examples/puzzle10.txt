@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Ted and Zippy.  Ted says, 'Of I and Zippy, exactly one is a knight.'  Zippy says that Ted is a knave.
+
+Can you determine who is a knight and who is a knave?

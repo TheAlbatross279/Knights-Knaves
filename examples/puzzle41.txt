@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Rex and Marge.  Rex claims, 'Both Marge is a knave and I am a knight.'  Marge says that only a knave would say that Rex is a knave.
+
+Can you determine who is a knight and who is a knave?

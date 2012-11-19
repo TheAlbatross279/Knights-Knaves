@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Marge and Ted.  Marge tells you, 'Ted and I are different.'  Ted claims, 'Only a knave would say that Marge is a knave.'
+
+Can you determine who is a knight and who is a knave?

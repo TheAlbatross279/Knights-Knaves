@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Alice and Ted.  Alice tells you, 'Either Ted is a knave or I am a knight.'  Ted tells you, 'Of I and Alice, exactly one is a knight.'
+
+Can you determine who is a knight and who is a knave?

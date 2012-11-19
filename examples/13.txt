@@ -1,5 +1,0 @@
-A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
-
-You meet two inhabitants: Bart and Ted. Bart claims, `I and Ted are both knights or both knaves.' Ted tells you, `Bart would tell you that I am a knave.'
-
-Can you determine who is a knight and who is a knave?

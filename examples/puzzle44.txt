@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Zippy and Zeke.  Zippy claims, 'Zeke is a knave or I am a knight.'  Zeke claims, 'Zippy could claim that I am a knave.'
+
+Can you determine who is a knight and who is a knave?

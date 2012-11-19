@@ -1,5 +1,0 @@
-A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
-
-You meet two inhabitants: Marge and Zoey. Marge says, `Zoey and I are both knights or both knaves.' Zoey claims, `Marge and I are the same.'
-
-Can you determine who is a knight and who is a knave?

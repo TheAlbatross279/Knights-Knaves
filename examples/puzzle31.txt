@@ -1,0 +1,5 @@
+A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
+
+You meet two inhabitants: Abe and Bozo.  Abe says, 'I and Bozo are not the same.'  Bozo tells you, 'I am a knight or Abe is a knight.'
+
+Can you determine who is a knight and who is a knave?
