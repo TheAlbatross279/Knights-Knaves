@@ -215,45 +215,45 @@ list2 = [
 "A is a knave and B is a knave",
 "A is a knight and B is a knight",
 "A is a knight and B is a knave",
-"A is a knave and B is a knight",
-"A is a knight and B is a knave",
-"A is a knight and B is a knave",
-"A is a knave and B is a knight",
-"A is a knave and B is a knight",
-"A is a knave and B is a knight",
-"A is a knight and B is a knave",
-"A is a knight and B is a knave",
-"A is a knight and B is a knight",
-"A is a knight and B is a knight",
-"A is a knave and B is a knight",
+"A is a knave and B is a knave",
 "A is a knight and B is a knave",
 "A is a knave and B is a knave",
 "A is a knave and B is a knight",
-"A is a knight and B is a knight",
 "A is a knave and B is a knight",
-"A is a knight and B is a knave",
-"A is a knight and B is a knight",
-"A is a knave and B is a knave",
+"A is a knave and B is a knight",
 "A is a knave and B is a knave",
 "A is a knight and B is a knave",
 "A is a knight and B is a knight",
-"A is a knave and B is a knave",
-"A is a knave and B is a knave",
-"A is a knight and B is a knave",
-"A is a knave and B is a knave",
+"A is a knight and B is a knight",
 "A is a knave and B is a knight",
 "A is a knight and B is a knave",
 "A is a knave and B is a knave",
 "A is a knave and B is a knight",
+"A is a knight and B is a knight",
+"A is a knave and B is a knight",
+"A is a knight and B is a knave",
+"Indeterminate",
+"A is a knave and B is a knave",
+"A is a knave and B is a knave",
+"A is a knight and B is a knave",
+"A is a knight and B is a knight",
+"A is a knave and B is a knave",
+"A is a knave and B is a knave",
+"Indeterminate",
+"A is a knave and B is a knave",
+"Indeterminate",
+"A is a knight and B is a knave",
+"A is a knight and B is a knave",
+"Indeterminate",
 "A is a knight and B is a knave",
 "A is a knight and B is a knight",
 "A is a knight and B is a knight",
 "A is a knave and B is a knave",
 "A is a knave and B is a knave",
-"A is a knight and B is a knave",
-"A is a knave and B is a knight",
-"A is a knight and B is a knave",
 "A is a knave and B is a knave",
+"A is a knave and B is a knight",
+"A is a knight and B is a knight",
+"Indeterminate",
 "A is a knave and B is a knight",
 "A is a knave and B is a knave",
 "A is a knave and B is a knight",
@@ -279,26 +279,35 @@ for ndx, t in enumerate(list):
     except SyntaxError:
         print "Syntax Error on #%d" % (ndx), traceback.format_exc()
 #    print
+    trues = 0
 
     if results[0] == True:
         result =  "A is a knight and B is a knave"
-    elif results[1] == True:
+        trues += 1
+    if results[1] == True:
         result = "A is a knave and B is a knight"
-    elif results[2] == True:
+        trues += 1
+    if results[2] == True:
         result = "A is a knight and B is a knight"
-    elif results[3] == True:
+        trues += 1
+    if results[3] == True:
         result = "A is a knave and B is a knave"
-    else:
+        trues += 1
+   
+    if trues > 1 or trues is 0:
         result = "Indeterminate"
+
 #        print "indeterminate"
 #        print statements
 
 #    print "Testing #%d" %(ndx)
     if result == list2[ndx]:
-#       print "Same"
+       print "Test #%d passed: " %(ndx + 1)
+       print result
+       print
        count +=1
     else: 
-        print "Test #%d failed: " %(ndx)
+        print "Test #%d failed: " %(ndx + 1)
         print t
         print statements
         print results
