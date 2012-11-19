@@ -1,0 +1,149 @@
+#ZOEY = KNIGHT && MEL = KNAVE
+"A is a knight and B is a knave"
+
+#PEGGY = KNAVE && ZIPPY = KNAVE
+"A is a knave and B is a knave"
+
+#SUE = KNIGHT && ZIPPY = KNAVE
+"A is a knight and B is a knave"
+
+#SALLY = KNAVE && ZIPPY = KNAVE
+"A is a knave and B is a knave"
+
+#HOMER = KNAVE && BOZO = KNAVE
+"A is a knave and B is a knave"
+
+#MARGE = KNIGHT && ZOEY = KNIGHT
+"A is a knight and B is a knight"
+
+#MEL = KNIGHT && TED = KNAVE
+"A is a knight and B is a knave"
+
+#ZED = KNAVE && ALICE = KNIGHT
+"A is a knave and B is a knight"
+
+#TED = KNAVE && ZEKE = KNAVE
+"A is a knave and B is a knave"
+
+#TED = KNIGHT && ZIPPY = KNAVE
+"A is a knight and B is a knave"
+
+#ZED = KNAVE && BART = KNAVE
+"A is a knave and B is a knave"
+
+#BOB = KNAVE && BETTY = KNIGHT
+"A is a knave and B is a knight"
+
+#BART = KNAVE && TED = KNIGHT
+"A is a knave and B is a knight"
+
+#BART = KNAVE && MEL = KNAVE
+"A is a knave and B is a knave"
+
+#BETTY = KNIGHT && PEGGY = KNAVE
+"A is a knight and B is a knave"
+
+#BOB = KNIGHT && MEL = KNIGHT
+"A is a knight and B is a knight"
+
+#ZED = ? && ALICE = ?
+"A is a ? and B is a ?"
+
+#ALICE = KNAVE && TED = KNIGHT
+"A is a knave and B is a knight"
+
+#ZEKE = ? && DAVE = KNAVE
+"A is a ? and B is a knave"
+
+#ZED = KNAVE && ZOEY = KNAVE
+"A is a knave and B is a knave"
+
+#SUE = KNAVE && MARGE = KNIGHT
+"A is a knave and B is a knight"
+
+#BOB = KNIGHT && TED = KNIGHT
+"A is a knight and B is a knight"
+
+#ZED = KNAVE && PEGGY = KNIGHT
+"A is a knave and B is a knight"
+
+#ZED = ? && BOB = ?
+"A is a ? and B is a ?"
+
+#REX = ? && MARGE = ?
+"A is a ? and B is a ?"
+
+#BOZO = KNAVE && MARGE = KNAVE
+"A is a knave and B is a knave"
+
+#PEGGY = KNAVE && CARL = KNAVE
+"A is a knave and B is a knave"
+
+#MEL = KNIGHT && HOMER = KNAVE
+"A is a knight and B is a knave"
+
+#CARL = KNIGHT && BETTY = KNIGHT
+"A is a knight and B is a knight"
+
+#MARGE = KNAVE && TED = KNAVE
+"A is a knave and B is a knave"
+
+#ABE = KNAVE && BOZO = KNAVE
+"A is a knave and B is a knave"
+
+#REX = ? && ABE = ?
+"A is a ? and B is a ?"
+
+#SUE = KNAVE && JOE = KNAVE
+"A is a knave and B is a knave"
+
+#MARGE = ? && HOMER = ?
+"A is a ? and B is a ?"
+
+#SALLY = KNIGHT && TED = KNAVE
+"A is a knight and B is a knave"
+
+#BART = KNIGHT && SALLY = KNAVE
+"A is a knight and B is a knave"
+
+#BOB = ? && SALLY = ?
+"A is a ? and B is a ?"
+
+#ALICE = KNIGHT && ZIPPY = KNAVE
+"A is a knight and B is a knave"
+
+#PEGGY = KNIGHT && ALICE = KNIGHT
+"A is a knight and B is a knight"
+
+#ALICE = KNIGHT && ZED = KNIGHT
+"A is a knight and B is a knight"
+
+#REX = KNAVE && MARGE = KNAVE
+"A is a knave and B is a knave"
+
+#HOMER = KNAVE && BILL = KNAVE
+"A is a knave and B is a knave"
+
+#MARGE = KNAVE && BETTY = KNAVE
+"A is a knave and B is a knave"
+
+#ZIPPY = ? && ZEKE = ?
+"A is a ? and B is a ?"
+
+#CARL = KNIGHT && BILL = KNIGHT
+"A is a knight and B is a knight"
+
+#HOMER = ? && ABE = ?
+"A is a ? and B is a ?"
+
+#PEGGY = KNAVE && JOE = KNIGHT
+"A is a knave and B is a knight"
+
+#BETTY = KNAVE && SALLY = KNAVE
+"A is a knave and B is a knave"
+
+#BOB = KNAVE && BILL = 
+"A is a knave and B is a knight"
+
+#ABE = KNAVE && HOMER = KNIGHT
+"A is a knave and B is a knight"
