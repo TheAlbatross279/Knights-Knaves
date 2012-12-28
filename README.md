@@ -1,4 +1,4 @@
-Knights and Knaves is a logic puzzle that deals with a mysterious island of inhabitants, where all inhabitants are either knights or knaves. The ones who are knights always tell the truth, while the inhabitants who are knaves always tell lies. The puzzle is to solve which of the inhabitants are knaves and which are knights. This code solves the problem when there are only two inhabitants in question. The correct input looks as follows: 
+Knights and Knaves is a logic puzzle that deals with a mysterious island of inhabitants who are either knights or knaves. The ones who are knights always tell the truth, while the inhabitants who are knaves always tell lies. The puzzle is to solve which of the inhabitants are knaves and which are knights. This code solves the problem when there are only two inhabitants in question. The correct input looks as follows: 
 
 'A very special island is inhabited only by knights and knaves. Knights always tell the truth, and knaves always lie.
 
